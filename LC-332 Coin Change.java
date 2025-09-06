@@ -1,0 +1,27 @@
+import java.util.*;
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        java.util.Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+    public static void main(String arg[]){
+        Scanner sc=new Scanner(System.in);
+        
+        int coins[]=new int[100];
+        int amount=sc.nextInt();
+        for(int i=0;i<coins.length;i++){
+            coins[i]=sc.nextInt();
+        }
+        Solution sol=new Solution();
+
+        int res=sol.coinChange(coins,amount);
+        System.out.println(res);
+    }
+}
